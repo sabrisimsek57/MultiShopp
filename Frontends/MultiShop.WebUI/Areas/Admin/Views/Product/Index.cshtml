@@ -1,0 +1,54 @@
+﻿    @model List< ResultProductDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="chart-box">
+                <h4>Kategori Listesi</h4>
+                <p>Kategori ile ilgili işlemleri asağıdaki tablo üzerinden gerçekleştirebilrisiniz <code>.table</code> to any <code>&lt;table&gt;</code>. It may seem super redundant, but given the widespread use of tables for other plugins like calendars and date pickers, we've opted to isolate our custom table styles.</p>
+                <div class="bs-example" data-example-id="simple-table">
+                    <table class="table">
+                        <caption>
+                            Optional table caption.
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ürün Adı</th>
+                                <th>Ürün Fiyatı</th>
+                                <th>Sil</th>
+                                <th>Güncelle</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                count++;
+                                <tr>
+                                    <th scope="row">@count</th>
+                                    <td>@item.ProductName</td>
+                                    <td>@item.ProductPrice</td>
+
+                                    <td><a href="/Admin/Product/DeleteProduct/@item.ProductId" class="btn btn-warning">Sil </a></td>
+                                    <td><a href="/Admin/Product/UpdateProduct/@item.ProductId" class="btn btn-success">Güncelle </a></td>
+
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    <td><a href="/Admin/Product/CreateProduct/" class="btn btn-warning">Yeni Ürün Giriş </a></td>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
