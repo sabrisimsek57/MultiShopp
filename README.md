@@ -56,8 +56,8 @@ Bu proje, **ASP.NET Core Web API 6.0** ile yazılmış mikroservislerin, **MVC**
 - Postman
 - RabbitMQ
 - Ocelot Gateway
-- MailKit
 - FluentValidation
 - Docker
 - DBeaver
 - RapidApi
+## Resimler
