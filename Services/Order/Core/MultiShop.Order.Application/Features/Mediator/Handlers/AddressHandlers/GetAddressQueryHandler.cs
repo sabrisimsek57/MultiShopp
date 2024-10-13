@@ -25,7 +25,7 @@ namespace MultiShop.Order.Application.Features.Mediator.Handlers.AddressHandlers
             {
                 AdressId = x.AdressId,
                 City = x.City,
-                Detail = x.Detail,
+                Detail = x.Detail1,
                 District = x.District,
                 UserId = x.UserId
             }).ToList();

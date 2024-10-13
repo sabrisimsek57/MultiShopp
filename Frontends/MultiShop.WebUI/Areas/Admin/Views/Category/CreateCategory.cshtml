@@ -11,12 +11,15 @@
                 <h4>Kategori Ekleme Sayfası</h4>
                 <p>Kategori ile ilgili işlemleri asağıdaki Panel üzerinden gerçekleştirebilrisiniz.</p>
                 <div class="bs-example" data-example-id="simple-table">
-                   
+
                     <form method="post">
-                        <label>kategori Adı</label>
+                        <label>Kategori Adı</label>
                         <input type="text" class="form-control" asp-for="CategoryName" />
                         <br />
-                        <button class="btn btn-primary"> Kategoriyi Ekle</button>
+                        <label>Kategori Görsel</label>
+                        <input type="text" class="form-control" asp-for="ImageUrl" />
+                        <br />
+                        <button class="btn btn-primary">Kategoriyi Ekle</button>
                     </form>
                 </div>
             </div>

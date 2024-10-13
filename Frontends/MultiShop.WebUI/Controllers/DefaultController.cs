@@ -9,6 +9,9 @@ namespace MultiShop.WebUI.Controllers
         {
             var user = User.Claims;
             int x;
+            ViewBag.directory1 = "MultiShop";
+            ViewBag.directory2 = "Ana Sayfa";
+            ViewBag.directory3 = "Ürün Listesi";
             return View();
         }
     }

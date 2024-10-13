@@ -16,6 +16,10 @@ namespace MultiShop.Cargo.BusinessLayer.Concrete
         {
             _cargoCustomerDal = cargoCustomerDal;
         }
+        public CargoCustomer TGetCargoCustomerById(string id)
+        {
+            return _cargoCustomerDal.GetCargoCustomerById(id);
+        }
         public void TDelete(int id)
         {
             _cargoCustomerDal.Delete(id);

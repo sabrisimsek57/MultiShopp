@@ -8,14 +8,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="chart-box">
-                <h4>Kategori Ekleme Sayfası</h4>
-                <p>Kategori ile ilgili işlemleri asağıdaki Panel üzerinden gerçekleştirebilrisiniz.</p>
+                <h4>Ürün Güncelleme Sayfası</h4>
+                <br />
                 <div class="bs-example" data-example-id="simple-table">
-
                     <form method="post">
-                        <label>Ürün ıd</label>
-                        <input type="text" class="form-control" asp-for="ProductId" />
-                        <br />
+                        <input type="hidden" asp-for="ProductId" />
                         <label>Ürün Adı</label>
                         <input type="text" class="form-control" asp-for="ProductName" />
                         <br />
@@ -26,12 +23,13 @@
                         <input type="text" class="form-control" asp-for="ProductImageUrl" />
                         <br />
                         <label>Ürün  Kategorisi </label>
-                        <input type="text" class="form-control" asp-for="CategoryId" />
+                        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.categoryValue, new { @class = "form-control" })
+
                         <br />
-                        <label>Ürün Açıklanması </label>
+                        <label>Ürün Açıklaması</label>
                         <textarea class="form-control" asp-for="ProductDescription" rows="5"></textarea>
                         <br />
-                        <button class="btn btn-primary"> ürün Güncelle</button>
+                        <button class="btn btn-primary">Ürünü Güncelle</button>
                     </form>
                 </div>
             </div>

@@ -26,7 +26,7 @@ namespace MultiShop.Order.Application.Features.Mediator.Handlers.AddressHandlers
             {
                 AdressId = valeus.AdressId,
                 City = valeus.City,
-                Detail = valeus.Detail,
+                Detail = valeus.Detail1,
                 District = valeus.District,
                 UserId = valeus.UserId,
             };

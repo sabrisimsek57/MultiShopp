@@ -31,46 +31,12 @@ namespace MultiShop.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task< IActionResult> Index(CreateLoginDto createLoginDto)
+        public async Task< IActionResult> Index(SıgnUpDto sıgnUpDto)
         {
            
-            var client = _httpClientFactory.CreateClient();
-            var contect = new StringContent(JsonSerializer.Serialize(createLoginDto), Encoding.UTF8,"Application/json");
-            var reponse = await client.PostAsync("http://localhost:5001/api/Logins", contect);
-            if(reponse.IsSuccessStatusCode)
-            {
-                var jsondata = await reponse.Content.ReadAsStringAsync();
-                var tokenmodel = JsonSerializer.Deserialize<JwtResponseModel>(jsondata, new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
+           await ıdentityService.SıgnIn(sıgnUpDto);
+            return RedirectToAction("Index", "User");
 
-
-                if (tokenmodel != null)
-                {
-                    JwtSecurityTokenHandler hadler = new JwtSecurityTokenHandler();
-                    var token = hadler.ReadJwtToken(tokenmodel.Token);
-                    var cliems = token.Claims.ToList();
-
-                    if (tokenmodel.Token != null) 
-                    {
-                        cliems.Add(new Claim("multishoptoken", tokenmodel.Token));
-                        var claimsIdentity = new ClaimsIdentity(cliems, JwtBearerDefaults.AuthenticationScheme);
-                        var authProps = new AuthenticationProperties
-                        {
-                            ExpiresUtc = tokenmodel.ExpireDate,
-                            IsPersistent = true
-                        };
-
-
-                        await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity),authProps);
-                        var id = loginService.GetUserId;
-                        return RedirectToAction("Index","Default");
-                    }
-                }
-            }
-
-            return View();
 
         }
         [HttpGet]
@@ -84,7 +50,7 @@ namespace MultiShop.WebUI.Controllers
    
         public async Task< IActionResult> SıgnUp(SıgnUpDto sıgnUpDto)
         {
-            sıgnUpDto.UserName = "Can22";
+            sıgnUpDto.Username = "Can22";
             sıgnUpDto.Password = "111111aA*";
             await ıdentityService.SıgnIn(sıgnUpDto);
             return RedirectToAction("Index", "User");

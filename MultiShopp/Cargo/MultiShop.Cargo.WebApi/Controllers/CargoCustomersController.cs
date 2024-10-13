@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MultiShop.Cargo.BusinessLayer.Abstract;
 using MultiShop.Cargo.EntityLayer.Concrete;
 using MultiShop.Cargo.DtoLayer.Dtos.CargoCustomerDtos;
-using MultiShop.Cargo.EntityLayer.Concrete;
+
 
 namespace MultiShop.Cargo.WebApi.Controllers
 {
@@ -45,7 +45,8 @@ namespace MultiShop.Cargo.WebApi.Controllers
                 Email = createCargoCustomerDto.Email,
                 Name = createCargoCustomerDto.Name,
                 Phone = createCargoCustomerDto.Phone,
-                Surname = createCargoCustomerDto.Surname
+                Surname = createCargoCustomerDto.Surname,
+                UserCustomerId = createCargoCustomerDto.UserCustomerId
             };
             _cargoCustomerService.TInsert(cargoCustomer);
             return Ok("Kargo Müşteri Ekleme İşlemi Başarıyla Yapıldı");
@@ -70,10 +71,17 @@ namespace MultiShop.Cargo.WebApi.Controllers
                 Email = updateCargoCustomerDto.Email,
                 Name = updateCargoCustomerDto.Name,
                 Phone = updateCargoCustomerDto.Phone,
-                Surname = updateCargoCustomerDto.Surname
+                Surname = updateCargoCustomerDto.Surname,
+                UserCustomerId = updateCargoCustomerDto.UserCustomerId
             };
             _cargoCustomerService.TUpdate(cargoCustomer);
             return Ok("Kargo Müşteri Güncelleme İşlemi Başarıyla Yapıldı");
+        }
+
+        [HttpGet("GetCargoCustomerById")]
+        public IActionResult GetCargoCustomerById(string id)
+        {
+            return Ok(_cargoCustomerService.TGetCargoCustomerById(id));
         }
     }
 }

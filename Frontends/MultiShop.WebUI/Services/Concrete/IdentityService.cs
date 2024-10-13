@@ -13,12 +13,10 @@ namespace MultiShop.WebUI.Services.Concrete
 {
     public class IdentityService : IIdentityService
     {
-
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ClientSettings _clientSettings;
         private readonly ServiceApiSettings _serviceApiSettings;
-
 
         public IdentityService(HttpClient httpClient, IHttpContextAccessor httpContextAccessor, IOptions<ClientSettings> clientSettings, IOptions<ServiceApiSettings> serviceApiSettings)
         {
@@ -78,9 +76,9 @@ namespace MultiShop.WebUI.Services.Concrete
             await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, result.Principal, properties);
 
             return true;
-
-
         }
+
+       
 
         public async Task<bool> SıgnIn(SıgnUpDto sıgnUpDto)
         {
@@ -89,21 +87,20 @@ namespace MultiShop.WebUI.Services.Concrete
                 Address = _serviceApiSettings.IdentityServerUrl,
                 Policy = new DiscoveryPolicy
                 {
-                    RequireHttps = false,
+                    RequireHttps = false
                 }
             });
 
-            var posswordTokenRequest = new PasswordTokenRequest
+            var passwordTokenRequest = new PasswordTokenRequest
             {
                 ClientId = _clientSettings.MultiShopManagerClient.ClientId,
                 ClientSecret = _clientSettings.MultiShopManagerClient.ClientSecret,
-                UserName = sıgnUpDto.UserName,
+                UserName = sıgnUpDto.Username,
                 Password = sıgnUpDto.Password,
                 Address = discoveryEndPoint.TokenEndpoint
             };
 
-
-            var token = await _httpClient.RequestPasswordTokenAsync(posswordTokenRequest);
+            var token = await _httpClient.RequestPasswordTokenAsync(passwordTokenRequest);
 
             var userInfoRequest = new UserInfoRequest
             {
@@ -113,8 +110,7 @@ namespace MultiShop.WebUI.Services.Concrete
 
             var userValues = await _httpClient.GetUserInfoAsync(userInfoRequest);
 
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(userValues.Claims,
-                CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(userValues.Claims, CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
 
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
@@ -124,28 +120,24 @@ namespace MultiShop.WebUI.Services.Concrete
             {
                 new AuthenticationToken
                 {
-                    Name  =  OpenIdConnectParameterNames.AccessToken,
+                    Name=OpenIdConnectParameterNames.AccessToken,
                     Value = token.AccessToken
-
                 },
                 new AuthenticationToken
                 {
-                    Name = OpenIdConnectParameterNames.RefreshToken,
+                    Name=OpenIdConnectParameterNames.RefreshToken,
                     Value = token.RefreshToken
                 },
                 new AuthenticationToken
                 {
-                    Name = OpenIdConnectParameterNames.ExpiresIn,
-                    Value = DateTime.Now.AddSeconds(token.ExpiresIn).ToString()
+                    Name=OpenIdConnectParameterNames.ExpiresIn,
+                    Value=DateTime.Now.AddSeconds(token.ExpiresIn).ToString()
                 }
-
             });
 
             authenticationProperties.IsPersistent = false;
 
-
-            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                claimsPrincipal,authenticationProperties);
+            await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
 
             return true;
         }
