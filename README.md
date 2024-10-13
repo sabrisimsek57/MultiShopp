@@ -61,5 +61,6 @@ Bu proje, **ASP.NET Core Web API 6.0** ile yazılmış mikroservislerin, **MVC**
 - DBeaver
 - RapidApi
 ## Resimler
-![resim](https://github.com/user-attachments/assets/17a4d9d6-2cb1-43b0-986a-8b999550b917)
+![1](https://github.com/user-attachments/assets/efe999fa-31d1-4e74-91d5-604b34a0420b)
+
 ![2](https://github.com/user-attachments/assets/95174507-eeba-4012-b40f-85f84476957a)
